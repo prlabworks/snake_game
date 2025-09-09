@@ -1,7 +1,8 @@
 # classic game of Snake
-
+# Author: Rackley, Date: 2024-06-15
 from turtle import Screen
 from snake import Snake
+from food import Food
 import time
 
 # Set up the screen for the game with specified dimensions and background color
@@ -12,6 +13,7 @@ screen.title("Snake")
 screen.tracer(0)  # Turn off automatic screen updates
 
 snake = Snake()
+food = Food()
 
 # Set up key bindings for controlling the snake
 screen.listen()
@@ -19,6 +21,7 @@ screen.onkey(snake.up, "Up")
 screen.onkey(snake.down, "Down")
 screen.onkey(snake.left, "Left")
 screen.onkey(snake.right, "Right")
+
 
 segments = snake.segments 
 
@@ -30,7 +33,11 @@ while game_is_on:
     
     screen.update()
     time.sleep(0.3)
-    
     snake.move()
     
+    # Check for collision with food
+    if snake.head.distance(food) < 15:
+        food.refresh()
+        # snake.add_segment(snake.segments[-1].position())    
+        
 screen.exitonclick()
