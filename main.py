@@ -1,5 +1,5 @@
 # classic game of Snake
-# Author: Rackley, Date: 2024-06-15
+# Author: PRLabwork, Date: 2024-06-15
 from turtle import Screen
 from snake import Snake
 from food import Food
@@ -32,7 +32,6 @@ game_is_on = True
 
 # Main game loop to keep the game running and update the screen
 while game_is_on:
-    
     screen.update()
     time.sleep(0.3)
     snake.move()
@@ -42,7 +41,7 @@ while game_is_on:
         score.increase_score()
         food.refresh()
         snake.extend()
-        # snake.add_segment(snake.segments[-1].position())
+    
     
     # Check for collision with wall
     if (snake.head.xcor() > 290 or snake.head.xcor() < -290 or
@@ -57,6 +56,5 @@ while game_is_on:
             game_is_on = False
             score.goto(0, 0)
             score.write("GAME OVER", align="center", font=("Courier", 24, "normal"))
-            
-        
+    
 screen.exitonclick()
