@@ -17,18 +17,26 @@ snake = Snake()
 food = Food()
 score = Scoreboard()
 
+
+def end_game():
+    global game_is_on
+    game_is_on = False
+    score.goto(0,0)
+    score.write("GAME OVER", align="center", font=("Courier", 24, "normal"))
+
 # Set up key bindings for controlling the snake
 screen.listen()
 screen.onkey(snake.up, "Up")
 screen.onkey(snake.down, "Down")
 screen.onkey(snake.left, "Left")
 screen.onkey(snake.right, "Right")
-
+screen.onkey(end_game, "Escape")
 
 segments = snake.segments 
 
 # Initialize the game loop control variable
 game_is_on = True
+
 
 # Main game loop to keep the game running and update the screen
 while game_is_on:
@@ -46,15 +54,14 @@ while game_is_on:
     # Check for collision with wall
     if (snake.head.xcor() > 290 or snake.head.xcor() < -290 or
         snake.head.ycor() > 290 or snake.head.ycor() < -290):
-        game_is_on = False
-        score.goto(0, 0)
-        score.write("GAME OVER", align="center", font=("Courier", 24, "normal"))    
+        score.reset()
+        snake.reset()
+     
         
     # Check for collision with tail
     for segment in segments[1:]:
         if snake.head.distance(segment) < 10:
-            game_is_on = False
-            score.goto(0, 0)
-            score.write("GAME OVER", align="center", font=("Courier", 24, "normal"))
-    
+            score.reset()
+            snake.reset()
+            
 screen.exitonclick()
